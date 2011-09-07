@@ -1,10 +1,5 @@
 #!/usr/bin/env bash
 
-PATH=$PATH:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-
-# load rvm
-source /usr/local/rvm/scripts/rvm
-
 # Configuration
 BRANCH='master'
 PROJECT="karenandrew"
