@@ -1,0 +1,142 @@
+#!/usr/bin/env bash
+
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+# load rvm
+source /usr/local/rvm/scripts/rvm
+
+# Configuration
+BRANCH='master'
+PROJECT="karenandrew"
+TIMESTAMP=$(date +"%Y%m%d%H%M%S%s")
+LINKED_TO="/srv/http/$PROJECT/current"
+SHARED_TO="/srv/http/$PROJECT/shared"
+SLUG_FILE="/srv/http/$PROJECT/slugs/$TIMESTAMP.tar.bz2"
+DEPLOY_TO="/srv/http/$PROJECT/snapshots/$TIMESTAMP"
+BUNDLER_VERSION=$(bundle --version)
+
+ORIG_GIT_DIR="$GIT_DIR"
+
+function git_exists {
+  git rev-parse --quiet --verify "$BRANCH":"$1"
+}
+
+# GITHUB_PROJECT="git@github.com:Tolmark12/rejuvenation.git"
+# COMMIT_REVISION=$(git rev-parse "$BRANCH")
+# COMMIT_AUTHOR=$(git log -n 1 --pretty=format:"%cN <%cE>" "$COMMIT_REVISION")
+
+function receiving_push {
+  echo "-----> Receiving push $COMMIT_REVISION by $COMMIT_AUTHOR"
+
+  if [ $(git_exists config.ru) ]; then
+    echo "-----> Rack app detected"
+    if [ $(git_exists script/rails) ]; then
+      echo "-----> Rails app detected"
+    fi
+  fi
+
+  if [ $(git_exists Gemfile) ]; then
+    echo "-----> Gemfile detected, using $BUNDLER_VERSION"
+  fi
+}
+
+function compile_slug {
+  echo "-----> Compiling slug"
+
+  if [ ! -d $(dirname "$SLUG_FILE") ]; then
+    mkdir -p $(dirname "$SLUG_FILE")
+  fi
+
+  git archive "$BRANCH" | bzip2 -9 > "$SLUG_FILE"
+
+  echo "-----> Compiled slug size: $(du -h "$SLUG_FILE" | sed 's/\(.*\)\s\(.*\)/\1/')"
+
+  if [ ! -d "$DEPLOY_TO" ]; then
+    mkdir -p "$DEPLOY_TO"
+  fi
+
+  tar -x -f "$SLUG_FILE" -C "$DEPLOY_TO"
+
+  ln -snf "$DEPLOY_TO" "$LINKED_TO"
+}
+
+function link_shared {
+  echo "-----> Linking shared directories"
+
+  cd "$LINKED_TO"
+
+  rm -rf "$LINKED_TO/log"
+
+  if [ ! -d "$SHARED_TO/log" ]; then
+    mkdir -p "$SHARED_TO/log"
+  fi
+
+  ln -snf "$SHARED_TO/log" "$LINKED_TO/log"
+
+  rm -rf "$LINKED_TO/vendor/bundle"
+  rm -rf "$LINKED_TO/script/observers/vendor/bundle"
+
+  if [ ! -d "$SHARED_TO/web/bundle" ]; then
+    mkdir -p "$SHARED_TO/web/bundle"
+  fi
+
+  ln -snf "$SHARED_TO/web/bundle" "$LINKED_TO/vendor/bundle"
+
+  if [ ! -d "$SHARED_TO/web/public/uploads" ]; then
+    mkdir -p "$SHARED_TO/web/public/uploads"
+  fi
+
+  ## public/sites
+
+  if [ ! -d "$SHARED_TO/web/public/sites" ]; then
+    mkdir -p "$SHARED_TO/web/public/sites"
+  fi
+
+  rm -rf "$LINKED_TO/public/sites"
+
+  ln -snf "$SHARED_TO/web/public/sites" "$LINKED_TO/public/sites"
+
+}
+
+function bundle_install {
+  echo "-----> Running 'bundle install --deployment' in '$LINKED_TO'"
+
+  cd "$LINKED_TO"
+
+  source "/usr/local/rvm/scripts/rvm"
+
+  unset GIT_DIR && bundle install --deployment
+}
+
+function package_assets {
+
+  cd "$LINKED_TO"
+
+  source "/usr/local/rvm/scripts/rvm"
+
+  if [ -z "$(bundle list | grep -i jammit)" ]; then
+    echo "-----> Running 'rake assets:precompile'"
+
+    RAILS_ENV=production bundle exec rake assets:precompile &
+  else
+    echo "-----> Running 'jammit'"
+
+    RAILS_ENV=production bundle exec jammit & 
+  fi
+
+}
+
+function restart_servers {
+  echo "-----> Restarting servers"
+
+  sudo /etc/init.d/karenandrew reload
+}
+
+receiving_push
+compile_slug
+link_shared
+bundle_install
+package_assets
+restart_servers
+
+echo "-----> Done!"
