@@ -1,0 +1,92 @@
+#!/usr/bin/env bash
+
+abspath=$(cd ${0%/*} && echo $PWD/${0##*/})
+
+USER="andrew"
+SERVER="karenandrew.info"
+TIMESTAMP=$(date +"%Y%m%d%H%M%S%s")
+RAILS_ROOT=$(dirname "$abspath")"/.."
+GIT_SCRIPTS_DIR="$RAILS_ROOT/config/git"
+SCRIPTS_DIR="$RAILS_ROOT/etc"
+TEMP_DIR="/tmp/$TIMESTAMP"
+
+hooks="$GIT_SCRIPTS_DIR/hooks/*"
+initscripts="$SCRIPTS_DIR/init.d/*"
+nginxconfs="$SCRIPTS_DIR/nginx/*"
+
+sudo_ssh() {
+
+    command="$@"
+
+    ssh "$USER@$SERVER" sudo "$command"
+
+}
+
+cleanup_temp_dir() {
+    sudo_ssh "rm -rf $TEMP_DIR"
+}
+
+create_temp_dir() {
+    cleanup_temp_dir
+    sudo_ssh "mkdir -p $TEMP_DIR"
+    sudo_ssh "chmod 777 $TEMP_DIR"
+}
+
+sudo_scp() {
+
+    user_id='root'
+
+    if [ "$#" -eq 0 ]; then
+        echo $"Usage: sudo_scp [-u user] {localfile} {remotefile}"
+        return 1
+    fi
+    if [ "$1" = "-u" ]; then
+        user_id="$2"
+        shift 2
+    fi
+
+    localfile="$1"
+    remotefile="$2"
+    remotefilename="$(basename $remotefile)"
+
+    create_temp_dir
+
+    scp "$localfile" "$USER@$SERVER:$TEMP_DIR/$remotefilename"
+    sudo_ssh "mv $TEMP_DIR/$remotefilename $remotefile"
+    sudo_ssh "chown $user_id $remotefile"
+}
+
+cd "$RAILS_ROOT"
+
+copy_git_hooks() {
+    for hook in $hooks
+    do
+        echo "Copying $hook to /home/git/repositories/karenandrew.git/hooks/$(basename $hook)"
+        sudo_scp -u git "$hook" "/home/git/repositories/karenandrew.git/hooks/$(basename $hook)"
+        sudo_ssh "chmod +x /home/git/repositories/karenandrew.git/hooks/$(basename $hook)"
+    done
+}
+
+copy_initd_scripts() {
+    for initscript in $initscripts
+    do
+        echo "Copying $initscript to /etc/init.d/$(basename $initscript)"
+        sudo_scp -u root "$initscript" "/etc/init.d/$(basename $initscript)"
+        sudo_ssh "chmod +x /etc/init.d/$(basename $initscript)"
+    done
+}
+
+copy_nginx_configs() {
+    for nginxconf in $nginxconfs
+    do
+        echo "Copying $nginxconf to /etc/nginx/$(basename $nginxconf)"
+        sudo_scp -u root "$nginxconf" "/etc/nginx/$(basename $nginxconf)"
+    done
+}
+
+copy_git_hooks
+copy_initd_scripts
+copy_nginx_configs
+cleanup_temp_dir
+
+exit $?
