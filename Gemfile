@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.0'
+gem 'rails', '~> 3.1.1.rc'
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
@@ -8,8 +8,8 @@ gem 'rails', '3.1.0'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails', "  ~> 3.1.0"
-  gem 'coffee-rails', "~> 3.1.0"
+  gem 'sass-rails'
+  gem 'coffee-rails'
   gem 'uglifier'
 end
 
@@ -24,6 +24,9 @@ gem 'haml'
 gem 'unicorn'
 
 gem 'foreman'
+
+gem 'hiredis'
+gem 'redis-store'
 
 # Deploy with Capistrano
 # gem 'capistrano'
