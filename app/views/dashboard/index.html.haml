@@ -1,7 +1,25 @@
-#countdown-container
-  #countdown
-  #label Until our wedding!
-#container
+- content_for :header do
+  .container_12
+    .grid_10.prefix_1.suffix_1
+      %h1= link_to 'Karen & Andrew', root_url, title: 'Karen & Andrew'
+
+.container_12
+  .grid_10.prefix_1.suffix_1
+    #slides= image_tag 'slide01-yellow-daffodils.jpg'
+    %nav
+      .sprite.topics
+        = link_to 'http://topics.karenandrew.info', title: 'What We Believe' do
+          %span What We Believe
+      .sprite.journal
+        = link_to 'http://journal.karenandrew.info', title: 'Family Journal' do
+          %span Family Journal
+      .sprite.howto
+        = link_to 'http://howto.karenandrew.info', title: 'How We Do It' do
+          %span How We Do It
+      .sprite.recipes
+        = link_to 'http://recipes.karenandrew.info', title: 'Family Recipes' do
+          %span Family Recipes
+-##container
   #banner
     #repeat
     #main

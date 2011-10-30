@@ -1,0 +1,178 @@
+//
+// This is a manifest file that'll automatically include all the stylesheets available in this directory
+// and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
+// the top of the compiled file, but it's generally better to create a new file per style scope.
+//= require html5boilerplate
+//= require 960gs
+//= require_tree .
+//= require_self
+//
+
+@font-face {
+  font-family: 'SegoeScript-Bold';
+  src: font-url('segoescb.eot');
+  src: font-url('segoescb.eot?#iefix') format('embedded-opentype'),
+       font-url('segoescb.woff') format('woff'),
+       font-url('segoescb.ttf') format('truetype'),
+       font-url('segoescb.svg#segoescb') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+    font-family: 'SegoeUI';
+    src: font-url('segoeui.eot');
+    src: font-url('segoeui.eot?#iefix') format('embedded-opentype'),
+         font-url('segoeui.woff') format('woff'),
+         font-url('segoeui.ttf') format('truetype'),
+         font-url('segoeui.svg#segoeui') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+header {
+  h1 {
+    font-family: 'SegoeScript-Bold', cursive;
+    font-size:   12pt;
+    a {
+      &, &:visited, &:active, &:hover { color: #000000; }
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.sprite {
+  background: transparent image-url('sprite.png') no-repeat 0 0;
+  display: block;
+}
+
+div[role='main'] {
+  background-color: #0f0;
+  nav a {
+    font-family: 'SegoeUI', sans-serif;
+    font-size:   15pt;
+  }
+}
+
+// body {
+//   margin: 0;
+//   padding: 0;
+//   min-width:960px;
+//   font-family: Helvetica;
+//   font-size: 10pt;
+// }
+// #countdown-container {
+//   z-index: 10;
+//   position: absolute;
+//   right: 0;
+//   top: 0;
+//   display: block;
+//   -webkit-box-shadow:0 0 50px rgba(255, 255, 255, 0.8);
+//   -moz-box-shadow: 0 0 50px rgba(255, 255, 255, 0.8); 
+//   box-shadow:0 0 50px rgba(255, 255, 255, 0.8);
+//   padding: 5px;
+//   color: #606;
+//   text-shadow: 0px 1px 2px rgba(51, 0, 51, 0.25);
+// }
+// #countdown-container #label {
+//   text-align: right;
+// }
+// #countdown.highlight {
+//   color: #c00;
+//   text-shadow: 0px 1px 2px rgba(102, 0, 0, 0.25);
+// }
+// #container {
+//   border-bottom: 9px solid #cc1814;
+// }
+// #container hr {
+//   clear: both;
+//   margin: 0;
+//   padding: 0;
+//   border: 0;
+//   background-color: #fff;
+//   height: 1px;
+// }
+// #banner {
+//   height:486px;
+//   width: 100%;
+//   padding-top: 64px;
+//   background-color: #f2ff30;
+//   border-bottom: 18px solid #000;
+// }
+// #repeat {
+//   background: transparent image-url('flower-repeat.jpg') repeat-x top right;
+//   height: 100%;
+//   width:100%;
+//   position:absolute;
+//   right:960px;
+// }
+// #main a.banner {
+//   float: right;
+//   background: transparent image-url('banner.jpg') no-repeat top right;
+//   width:100%;
+//   height:486px;
+// }
+// #main a.banner span { display: none; }
+// #main ul {
+//   margin: 0;
+//   padding: 0;
+//   list-style: none;
+//   position: absolute;
+//   right: 0px;
+//   top: 460px;
+// }
+// #main ul li {
+//   float: left;
+//   margin-right: 8px;
+// }
+// #main ul li:not(:last-child) {
+//   border-right: 1px solid rgba(0, 0, 0, 0.5);
+// }
+// #main ul li a {
+//   display: block;
+//   height: 80px;
+//   padding-left: 130px;
+//   margin-right: 8px;
+//   color: rgba(255, 255, 255, 0.5);
+//   text-decoration: none;
+// }
+// #main ul li a:hover {
+//   color: rgba(255, 255, 255, 1.0);
+// }
+// #main ul li a span {
+//   display: block;
+//   position: relative;
+//   top: 26px;
+//   background-color: rgba(0, 0, 0, 0.5);
+//   height: 24px;
+//   line-height: 24px;
+//   padding: 4px 8px;
+// }
+// #main ul li.topics a {
+//   background: transparent image-url('topics-off.png') no-repeat top left;
+// }
+// #main ul li.topics a:hover {
+//   background-image: image-url('topics-on.png');
+// }
+// #main ul li.journal a {
+//   background: transparent image-url('journal-off.png') no-repeat top left;
+// }
+// #main ul li.journal a:hover {
+//   background-image: image-url('journal-on.png');
+// }
+// #main ul li.recipes a {
+//   background: transparent image-url('recipes-off.png') no-repeat top left;
+// }
+// #main ul li.recipes a:hover {
+//   background-image: image-url('recipes-on.png');
+// }
+// #main ul li.howto a {
+//   background: transparent image-url('howto-off.png') no-repeat top left;
+//   padding-left: 96px;
+// }
+// #main ul li.howto a:hover {
+//   background-image: image-url('howto-on.png');
+// }
