@@ -1,40 +1,24 @@
 - content_for :header do
-  .container_12
-    .grid_10.prefix_1.suffix_1
-      %h1= link_to 'Karen & Andrew', root_url, title: 'Karen & Andrew'
+  %header.grid_10.prefix_1.suffix_1
+    %h1= link_to 'Karen & Andrew', root_url, title: 'Karen & Andrew'
+  %span.clear
 
-.container_12
-  .grid_10.prefix_1.suffix_1
-    #slides= image_tag 'slide01-yellow-daffodils.jpg'
-    %nav
-      .sprite.topics
-        = link_to 'http://topics.karenandrew.info', title: 'What We Believe' do
-          %span What We Believe
-      .sprite.journal
-        = link_to 'http://journal.karenandrew.info', title: 'Family Journal' do
-          %span Family Journal
-      .sprite.howto
-        = link_to 'http://howto.karenandrew.info', title: 'How We Do It' do
-          %span How We Do It
-      .sprite.recipes
-        = link_to 'http://recipes.karenandrew.info', title: 'Family Recipes' do
-          %span Family Recipes
--##container
-  #banner
-    #repeat
-    #main
-      %a.banner{:href => "http://karenandrew.info/", :title => "Karen & Andrew"}
-        %span Karen & Andrew
-      %ul
-        %li.topics
-          %a{:href => "http://topics.karenandrew.info/", :title => "Gospel Topics"}
-            %span Gospel Topics
-        %li.journal
-          %a{:href => "http://journal.karenandrew.info/", :title => "Family Journal"}
-            %span Family Journal
-        %li.recipes
-          %a{:href => "http://recipes.karenandrew.info/", :title => "Family Recipes"}
-            %span Family Recipes
-        %li.howto
-          %a{:href => "http://howto.karenandrew.info/", :title => "How We Do It"}
-            %span How We Do It
+.grid_10.prefix_1.suffix_1
+  #slides= image_tag 'slide01-yellow-daffodils.jpg'
+  %nav
+    .sprite.topics
+      = link_to karenandrew_url(:topics), title: render('topics'), rel: 'tipsy' do
+        %span What We Believe
+    .sprite.journal
+      = link_to karenandrew_url(:journal), title: render('journal'), rel: 'tipsy' do
+        %span Family Journal
+    .sprite.howto
+      = link_to karenandrew_url(:howto), title: render('howto'), rel: 'tipsy' do
+        %span How We Do It
+    .sprite.recipes
+      = link_to karenandrew_url(:recipes), title: render('recipes'), rel: 'tipsy' do
+        %span Family Recipes
+
+- content_for :footer do
+  %footer.grid_10.prefix_1.suffix_1
+    &copy; 2011 Karen and Andrew Bennett

@@ -6,4 +6,11 @@
 #
 #= require jquery
 #= require jquery_ujs
+#= require jquery.tipsy
 #= require_tree .
+
+$(document).ready ->
+  $('a[rel=tipsy]').tipsy
+    fade: true
+    gravity: 'e'
+    html: true

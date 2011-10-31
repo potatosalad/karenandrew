@@ -21,6 +21,15 @@
           var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
         })();
   %body
-    %header= yield :header
-    %div{ role: 'main' }= yield
-    %footer= yield :footer
+    .whole.header
+      .container_12
+        = yield :header
+        %span.clear
+    .whole{ role: 'main' }
+      .container_12
+        = yield
+        %span.clear
+    .whole.footer
+      .container_12
+        = yield :footer
+        %span.clear
