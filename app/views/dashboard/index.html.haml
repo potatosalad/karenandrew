@@ -6,18 +6,14 @@
 .grid_10.prefix_1.suffix_1
   #slides= image_tag 'slide01-yellow-daffodils.jpg'
   %nav
-    .sprite.topics
-      = link_to karenandrew_url(:topics), title: render('topics'), rel: 'tipsy' do
-        %span What We Believe
-    .sprite.journal
-      = link_to karenandrew_url(:journal), title: render('journal'), rel: 'tipsy' do
-        %span Family Journal
-    .sprite.howto
-      = link_to karenandrew_url(:howto), title: render('howto'), rel: 'tipsy' do
-        %span How We Do It
-    .sprite.recipes
-      = link_to karenandrew_url(:recipes), title: render('recipes'), rel: 'tipsy' do
-        %span Family Recipes
+    = link_to karenandrew_url(:topics), title: render('topics'), rel: 'tipsy', class: 'sprite topics' do
+      %span What We Believe
+    = link_to karenandrew_url(:journal), title: render('journal'), rel: 'tipsy', class: 'sprite journal' do
+      %span Family Journal
+    = link_to karenandrew_url(:howto), title: render('howto'), rel: 'tipsy', class: 'sprite howto' do
+      %span How We Do It
+    = link_to karenandrew_url(:recipes), title: render('recipes'), rel: 'tipsy', class: 'sprite recipes' do
+      %span Family Recipes
 
 - content_for :footer do
   %footer.grid_10.prefix_1.suffix_1
