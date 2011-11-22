@@ -1,0 +1,40 @@
+- content_for :header do
+  %header.grid_10.prefix_1.suffix_1
+    %h1= link_to 'Karen & Andrew', root_url, title: 'Karen & Andrew'
+  %span.clear
+
+.grid_10.prefix_1.suffix_1
+  %h1 Listing movies
+  %table
+    %tr
+      %th Watched
+      %th Position
+      %th Title
+      %th Url
+      %th Premiered
+      %th
+      %th
+      %th
+    - @movies.each do |movie|
+      %tr
+        %td
+          = simple_form_for movie, remote: true do |f|
+            = f.input :watched, as: :boolean, label: false
+        %td= movie.position
+        %td= movie.title
+        %td= movie.url
+        %td= movie.premiered_at
+        %td= link_to 'Show', movie
+        %td= link_to 'Edit', edit_movie_path(movie)
+        %td= link_to 'Destroy', movie, confirm: 'Are you sure?', method: :delete
+  %br/
+  = link_to 'New Movie', new_movie_path
+
+  %br/
+  %br/
+  %br/
+  %br/
+
+- content_for :footer do
+  %footer.grid_10.prefix_1.suffix_1
+    &copy; 2011 Karen and Andrew Bennett

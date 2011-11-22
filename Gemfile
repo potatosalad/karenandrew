@@ -17,6 +17,8 @@ gem 'jquery-rails'
 
 gem 'haml'
 gem 'mechanize'
+gem 'inherited_resources'
+gem 'simple_form'
 
 # mongodb
 gem 'mongoid',  '~> 2.3.3'
@@ -27,6 +29,7 @@ gem 'bson_ext', '1.3.1'
 # Use unicorn as the web server
 gem 'unicorn'
 
+gem 'pry'
 gem 'foreman'
 
 gem 'hiredis'
