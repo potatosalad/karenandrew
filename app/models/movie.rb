@@ -2,6 +2,7 @@ class Movie
   include Mongoid::Document
 
   ## extensions ##
+  include Mongoid::MultiParameterAttributes
   include Mongoid::Timestamps
 
   ## fields ##
