@@ -32,7 +32,10 @@ gem 'jbuilder'
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
 # Use unicorn as the web server
-gem 'unicorn'
+# gem 'unicorn'
+
+# User thin as the web server
+# gem 'thin'
 
 ## mongodb ##
 gem 'mongoid',  '2.4.3'
@@ -55,7 +58,6 @@ gem 'pry-rails'
 
 group :development do
   gem 'foreman'
-  gem 'thin'
 end
 
 group :test do
