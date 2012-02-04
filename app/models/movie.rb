@@ -13,7 +13,6 @@ class Movie
 
   ## validations ##
   validates :title, presence: true
-  validates_format_of :title, with: /WHAT/
   validates :position, uniqueness: true
 
   ## callbacks ##
