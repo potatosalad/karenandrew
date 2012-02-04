@@ -24,7 +24,7 @@ body.movies {
       background-color: #000; } }
 
   div {
-    &.field, &.actions {
+    &.field, &.actions, &.input {
       margin-bottom: 10px; } }
 
   #notice {
@@ -34,6 +34,14 @@ body.movies {
     padding: 2px;
     background-color: red;
     display: table; }
+
+  table tr:nth-child(even) {
+    background-color: #aaa;
+  }
+
+  table tr:hover {
+    background-color: white;
+  }
 
   #error_explanation {
     width: 450px;

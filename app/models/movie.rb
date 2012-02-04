@@ -6,7 +6,6 @@ class Movie
 
   ## fields ##
   field :title
-  field :url
   field :position,     type: ::Integer
   field :premiered_at, type: ::Date
   field :released_at,  type: ::Date
@@ -14,7 +13,7 @@ class Movie
 
   ## validations ##
   validates :title, presence: true
-  validates :url, format: URI::regexp(%w(http https)), allow_nil: true
+  validates_format_of :title, with: /WHAT/
   validates :position, uniqueness: true
 
   ## callbacks ##

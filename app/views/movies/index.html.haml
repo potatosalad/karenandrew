@@ -10,7 +10,6 @@
       %th Watched
       %th Position
       %th Title
-      %th Url
       %th Premiered
       %th
       %th
@@ -22,7 +21,6 @@
             = f.input :watched, as: :boolean, label: false
         %td= movie.position
         %td= movie.title
-        %td= movie.url
         %td= movie.premiered_at
         %td= link_to 'Show', movie
         %td= link_to 'Edit', edit_movie_path(movie)
