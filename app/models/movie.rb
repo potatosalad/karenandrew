@@ -19,6 +19,10 @@ class Movie
   ## callbacks ##
   before_create :add_to_list_bottom
 
+  ## named scopes ##
+  scope :unwatched, where: { watched: false }
+  scope :watched,   where: { watched: true  }
+
   protected
 
   def add_to_list_bottom

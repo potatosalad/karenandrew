@@ -5,6 +5,10 @@
 
 .grid_10.prefix_1.suffix_1
   %h1 Listing movies
+  %h3 Stats
+  %ul
+    %li Unwatched: #{Movie.unwatched.count}
+    %li Watched: #{Movie.watched.count}
   %table
     %tr
       %th Watched
