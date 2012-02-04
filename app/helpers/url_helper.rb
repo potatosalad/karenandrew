@@ -13,11 +13,11 @@ module UrlHelper
   end
 
   # The options parameter is the hash passed in to 'url_for'
-  def default_url_options(options)
-    if Rails.env.production?
+  def default_url_options(options = {})
+    options.reverse_merge(if Rails.env.production?
       {host: 'karenandrew.info'}
     else  
       {}
-    end
+    end)
   end
 end
