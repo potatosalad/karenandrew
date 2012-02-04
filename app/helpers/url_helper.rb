@@ -11,4 +11,13 @@ module UrlHelper
     end
     super
   end
+
+  # The options parameter is the hash passed in to 'url_for'
+  def default_url_options(options)
+    if Rails.env.production?
+      {host: 'karenandrew.info'}
+    else  
+      {}
+    end
+  end
 end
