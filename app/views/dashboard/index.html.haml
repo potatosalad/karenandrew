@@ -3,8 +3,13 @@
     %h1= link_to 'Karen & Andrew', root_url, title: 'Karen & Andrew'
   %span.clear
 
+-#%canvas#kenburns{ width: 640, height: 480 }
+  %p Your browser doesn't support canvas!
+
 .grid_10.prefix_1.suffix_1
-  #slides= image_tag 'slide01-yellow-daffodils.jpg'
+  #slides
+    %canvas#kenburns{ width: 780, height: 514 }= image_tag 'slide01-yellow-daffodils.jpg'
+  -##slides= image_tag 'slide01-yellow-daffodils.jpg'
   %nav
     = link_to karenandrew_url(:topics), title: render('topics'), rel: 'tipsy', class: 'sprite topics' do
       %span What We Believe

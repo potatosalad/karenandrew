@@ -1,6 +1,8 @@
 Karenandrew::Application.routes.draw do
   resources :movies
 
+  get 'images' => 'dashboard#images', format: :json
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

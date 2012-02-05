@@ -55,6 +55,7 @@ gem 'redis-store'
 
 ## utilities ##
 gem 'foreman'
+gem 'nokogiri'
 gem 'pry-rails'
 
 group :development do

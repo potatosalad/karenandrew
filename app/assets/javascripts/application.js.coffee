@@ -6,7 +6,10 @@
 #
 #= require jquery
 #= require jquery_ujs
+#= require jquery.cross-slide
+#= require jquery.kenburns
 #= require jquery.tipsy
+#= require modernizr
 #= require_tree .
 
 $(document).ready ->
