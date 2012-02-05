@@ -16,7 +16,7 @@ class DashboardController < ApplicationController
         url       = URI.parse(node[:url])
         base_name = File.basename(url.path)
         base_path = File.dirname(url.path)
-        url.path  = "#{base_path}/s800/#{base_name}"
+        url.path  = "#{base_path}/s1000/#{base_name}"
         #{ src: url.to_s }
         url.to_s
       rescue
